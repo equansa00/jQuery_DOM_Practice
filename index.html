@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>Document</title>
-  <link rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet"
+        href="https://unpkg.com/bootstrap/dist/css/bootstrap.css">
   <style>
     img {
       max-width: 70%;
@@ -22,7 +23,6 @@
     <article class="col-sm-8">
       <p>My website is very important because I have many important things
         to say. Here is a picture of a puppy in a cup: </p>
-      <!-- Add the <img> tag here to display the image -->
       <img src="pup-in-cup.jpg" alt="Puppy in Cup">
       <p>Here are some more thoughts: Lorem ipsum dolor sit amet,
         consectetur adipisicing elit. Cum harum labore veritatis, possimus
@@ -68,30 +68,30 @@
       <input class="form-control" type="number" min="0" max="255" value="255">
     </div>
   </div>
+
+  <form id="movieForm">
+    <input type="text" id="titleInput" placeholder="Enter movie title">
+    <input type="text" id="ratingInput" placeholder="Enter movie rating">
+    <button type="submit">Add Movie</button>
+  </form>
+  <ul id="movieList">
+    <!-- Existing movies will be added here -->
+  </ul>
+
 </div>
+
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script>
-  // When the DOM is ready, console.log the message "Let’s get ready to party with jQuery!"
+  // Part One: DOM manipulation
   $(document).ready(function() {
     console.log("Let's get ready to party with jQuery!");
 
-    // Give all images inside of an article tag the class of image-center
     $('article img').addClass('image-center');
-
-    // Remove the last paragraph in the article
     $('article p:last-child').remove();
-
-    // Set the font size of the title to be a random pixel size from 0 to 100
     $('#title').css('font-size', Math.random() * 100);
-
-    // Add an item to the list; it can say whatever you want
     $('ol').append('<li>New list item!</li>');
-
-    // Empty the aside and put a paragraph apologizing for the list's existence
     $('aside').empty().append('<p>Sorry, the list was silly.</p>');
 
-    // When you change the numbers in the three inputs on the bottom,
-    // the background color of the body should change to match the input values
     $('.form-control').on('input', function() {
       var redValue = $('.form-control:eq(0)').val();
       var blueValue = $('.form-control:eq(1)').val();
@@ -99,15 +99,12 @@
       $('body').css('background-color', 'rgb(' + redValue + ',' + greenValue + ',' + blueValue + ')');
     });
 
-    // Add an event listener so that when you click on the image, it is removed from the DOM
     $('img').on('click', function() {
       $(this).remove();
     });
   });
-</script>
 
-<script>
-  // Function to add a new movie to the list
+  // Part Two: Movies App
   function addMovie() {
     var title = $('#titleInput').val();
     var rating = $('#ratingInput').val();
@@ -122,62 +119,18 @@
       listItem.append(removeButton);
       $('#movieList').append(listItem);
 
-      // Clear the input fields after adding the movie
       $('#titleInput').val('');
       $('#ratingInput').val('');
     }
   }
 
   $(document).ready(function() {
-    // Add event listener to the form submission
     $('#movieForm').on('submit', function(event) {
       event.preventDefault();
       addMovie();
     });
   });
 </script>
-
-<script>
-  // Function to add a new movie to the list
-  function addMovie() {
-    var title = $('#titleInput').val();
-    var rating = $('#ratingInput').val();
-
-    if (title && rating) {
-      var listItem = $('<li>').text(title + ' - ' + rating);
-      var removeButton = $('<button>').text('Remove');
-      removeButton.on('click', function() {
-        $(this).parent().remove();
-      });
-
-      listItem.append(removeButton);
-      $('#movieList').append(listItem);
-
-      // Clear the input fields after adding the movie
-      $('#titleInput').val('');
-      $('#ratingInput').val('');
-    }
-  }
-
-  $(document).ready(function() {
-    // Add event listener to the form submission
-    $('#movieForm').on('submit', function(event) {
-      event.preventDefault();
-      addMovie();
-    });
-  });
-</script>
-
-<form id="movieForm">
-  <input type="text" id="titleInput" placeholder="Enter movie title">
-  <input type="text" id="ratingInput" placeholder="Enter movie rating">
-  <button type="submit">Add Movie</button>
-</form>
-
-<ul id="movieList">
-  <!-- Existing movies will be added here -->
-</ul>
 
 </body>
-
 </html>
